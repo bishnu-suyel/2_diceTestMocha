@@ -76,3 +76,21 @@ describe("test ubounds 2...20", function () {
     });
   }
 });
+
+describe("Test the roll (distribution)", function () {
+  const testValues = new Array(19).fill(2).map((value, ind) => value + ind);
+
+  testValues.forEach(function (ubound) {
+    const dotCounts = []; 
+    const dice = new Dice(ubound);
+
+    it(`dot distribution ok with upper bound ${ubound}`, function () {    
+      for (let i = 0; i < ubound * 10; i++) {
+        dice.roll();
+        dotCounts.push(dice.dots);
+      }
+
+      expect(new Set(dotCounts).size).to.be.equal(ubound);
+    });
+  });
+});
